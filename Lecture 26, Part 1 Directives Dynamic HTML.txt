@@ -1,0 +1,84 @@
+[SOUND] perhaps the most defining features of the angularJS is
+the idea of directives. This is so much so, that the front
+page of the angularjs.org hence to directives when it answers
+the question why angular? It's worth while reading their
+answer It states as follows. HTML is great for
+declaring static documents, but it falters when we try to use it for declaring
+dynamic views in web applications. AngularJS lets you extend HTML
+vocabulary for your application. The resulting environment
+is extraordinary, expressive, readable,
+and quick to develop. The key word in this
+description is extend. Angular allows you to extend the standard HTML into whatever suits
+your particular application. That is incredibly powerful
+as you'll soon see. So, when it comes to HTML and HTML templates in Angular Its nothing
+strange to see something like this. As you could see here we
+have a tag called list-item appearing right in the middle
+of regular HTML code. That's an aAngular directive. Its certainly not a standard HTML tag. But how does this code become
+quote unquote regular HTML code. Remember from a previous lecture
+when we tried to understand how custom HTML attributes work and therefore demystify how angular is
+able to find place holders in HTML? Once Angular was able to find ngApp
+attribute on an element it got access to the entire document object
+model that was attached to that element. The Angular functions are then free
+to manipulate that tree of HTML nodes however it pleases. It can then replace the variables
+surrounded by double curly braces with values it looks up in
+the dollar sign scope. It can also examine any node, be it
+content, tag or attribute, and decide if it should replace it with something else
+attach some functional behavior to it etc. In Angular this process
+is called compilation. If you've done programming before
+when you hear the word compilation it usually means translating
+your source code into some other code that the machine
+can understand. Usually this is done before you
+actually execute your code. In Angular most of the time
+the compilation happens at the beginning when you'll load your page or particular
+HTML template and sometimes even later. But the process is the same Angular
+compiles and links your custom HTML code. You can also combine directives together. Here you could see that we're
+using the familiar ng-repeat on this custom list-item directive. Okay, so let's define what a directive is. A Directive is really just a Marker on
+a DOM element that tells Angular's HTML compiler to attach a specified
+behavior to that DOM element. The compiler can also transform/change
+the DOM elements and its children. The marker itself as we're calling it
+can be one of four things, it can be and attribute, and element name,
+a comment, and even a CSS class. However it's not a best
+practice to use comments, or CSS classes in order to use directives. So, most of the time you
+will stick to elements and attributes when you define
+your custom directives. Okay, so let's go over the steps
+of creating you custom directive. The first step is to register
+the directive with the angular.module. And as you could see here it's almost
+identical to the way you register controllers, services,
+factories and so on. Here we're using a special module
+method called directive and we're defining a directive name. Now the directive name that we
+are specifying here is a Normalized name that will appear in HTML. And I will explain what's
+meant by Normalize shortly. The second argument is the Factory
+function that returns what's called a DDO. Otherwise known as
+a Directive Definition Object. The DDO is basically a configuration
+object that tells angular compiler how this directive should behave when
+angular finds this tag or element or attribute in our HTML. The Factory function MyTag in our
+example here will execute only once and not everytime it finds our
+directive mentioned that now HTML. And since it's only going to get executed
+once you could use that function to perform any initializations you
+need besides obviously returning the special object DDO,
+the Directive Definition Object. The second step is to Define
+our Factory Function. In node just like a controller
+service we can Inject other things into the directive. We can inject other services,
+controllers, etc. As usual. The most important thing
+about this function is for us to return our ddo;
+the Directive Definition Object. The Directive Definition Object consists
+of multiple properties that are defined in the AngularJS documentation. The template property defined
+here is just an example. And it's not a required property. However in this example every
+time we use MyTag in our HTML the words Hello World
+will be displayed to the user. The third and final step is obviously
+to Use the tag In our HTML. Note that the name of the element
+is not myTag, but my-tag. In order for angular to match your element
+or attribute to the name of the directive it first needs to normalize
+the name it finds in HMTL. The way it normalizes the name
+is by removing the dash and then capitalizing the next letter. In other words it replaces
+the dash delimited notation with camel case notation. If you're not familiar with camel case
+notation it's actually very simple. It's basically a way to name
+something in programming where you take a number of words,
+concatenate them together, leaving the first word all lowercase
+with each subsequent word capitalized. So, when AngularJS sees my-tag
+in our HTML it will look for a directive that was registered with
+the name myTag with the T capitalized. And obviously it will find our
+declaration of a directive called myTag with the T capitalized thus
+connecting the two pieces together and providing the functionality that is
+defined In the myTag factory function. Okay, time to get back to our code editor. In part two of this lecture we'll be
+creating our first custom directive. Exciting! See you in part two.

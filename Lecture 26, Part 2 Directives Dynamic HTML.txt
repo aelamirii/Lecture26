@@ -1,0 +1,159 @@
+[SOUND]
+>> Okay in this lecture we're going to write
+our very own first custom directive. And in order to do that we're going to
+reuse the application that we rendered previously. If you remember we had an application
+where we had two shopping lists that worked independently from each other. Meaning that each had their own instance
+of the shopping list service and, therefore, each shopping list was
+saved in a separate instance and they did not interfere with each other. What we are going to do now is look for
+opportunities to reuse pieces of HTML so we don't have to write
+the same HTML over and over. Let's go back to the code editor and
+I'm located in lecture 26, which is located in full stack
+course five examples folder. And here we have
+the Shopping List Directive App. And it's really just a renamed app, it's exactly the same as we had it
+before with just the minor differences. Obviously the title is a little different,
+but also I changed the label. Instead of list one, And
+List 2, I just kept it as list. These two list labels do not
+interfere with each other. Simply because this list label is only
+exposed to the body of this controller, and that list label is only exposed to
+the body of the, their first controller. So if you remember as a user clicks
+to add a new item to the list it gets output using this
+interpolation right here. So this is in the first list. If you take a look in the second list,
+well it's exactly the same thing again. well it would be nice that we wouldn't
+have to re-write this over and over, but
+only really write this just once and use some element to signify that
+we are describing an item here. Let's go back to our app Gs and i'll
+minimize the file browser in the right, and let's define a list
+item description directive. So we'll put enter here and
+we'll call it directive and we'll say listItemDescription. Notice that I started the name of
+my directive with the lower case l, and that is because we are using
+this as a camo case notation that will be later mashed with
+another element in our HTML. Next I need to name the function
+that's going to be responsible for this and we'll just name it
+the same list item description. Change the first letter to lower case. Okay, now we're ready to
+actually define this function. So let's go ahead and say function,
+we'll say list item description. We don't need to inject anything into this
+function so we just leave it at that. And we'll define our DDO and a DDO is
+going to be an object literal with one simple property called template and
+that template is going to be, and let's go back to our index.html that template is
+going to be just the string right here. Let's go ahead and copy and
+paste that right here. And that's really all we need and
+we'll go ahead and return, not to forget the return rddo. Okay, so now that we've
+registered our our directive and we defined the factory
+function that returns rddo. And every time of this particular tag or this particular element is going to
+be in our html it's going to output this to the html for us because that's
+the template of this directive. Okay, so what's left is to go to
+indirect html and wipe this out and instead write list-item-description and notice that the list item description
+is using dashes in between because I need to leave it in a none normalized
+notation so Angular JS can then take that normalize ir and match it with the list
+Item description directive declaration. So that's one and we use the same
+thing in the second one, so we'll wipe that again and
+we'll paste that, we'll save it. Let's go back to our browser and
+let's try it out. We'll just put bunch of nonsense in here,
+just to test it out. You can see as we keep doing this,
+it's working. This one is going to be
+a little bit separate, but as you can see this one
+only has limit to three but our item description meaning this
+piece right here is working very well. Let's go ahead and take a look at
+to what this looks like in the dam. What is the dam look like for
+this particular element, let's expand this out a little bit. And let's take a look. You can see that Angular left a list
+item description right in place, and actually placed our value right in
+the body of that particular custom tag. But let's go back for
+a second to the code and take a look at our template that we
+defined for that particular tag. You can see that the template
+is using interpolation and it's using item.quantity and item.name. Where is Angular getting this
+item.quantity, item.name? When we were inside our controller, item referred to the item that
+was part of the ng repeat and that was pulled out of
+the local controller scope. So how is it that we are able to access
+this item inside our directive and the answer is unless
+you specify otherwise. This scope of your directive will be the
+same scope of the containing controller. So if we go to our index.html,
+you can see that this list item description directive is sitting
+inside of our ShoppingListController1. So the scope that is available to
+the body of this controller is the exact same scope. That is available inside of our
+list item description directive. That is how we're able to,
+if we go back to ab.gs, that's how we're able to say
+item.quantity and item.name. Because ultimately, all these properties are part of the scope
+that this particular directive lives in. Let's go back to index dash HTML and
+see if we can find other opportunities to create a template
+expanding directive for us. Well, one of them is right here. We see this li item. This li item repeats again in
+the shopping list number two. Well, what if we make this li item
+as a list item for our shopping, in other words, the shopping list item. Well let's go back to our app .js. Let's create another directive. And this time were going to
+call it a directive. We're going to call it, again starting
+with the lowercase, listItem. So not description but
+the whole list item. And we'll specify its
+factory function list, Item. Okay, so all we need to do
+now is actually define it. Lets go head and say function, list item. We don't need to inject anything into it,
+so we're good here, and we'll create our ddo object. The directive definition object,
+let's put a semi colon here. And again, we'll say template. Except that, let's take a look as to what would we
+actually have to place into this template? Let's take a look at the index HTML. So we were really going to expect it to
+place this whole string into our template. That's kind of difficult. Not only is it kind of a large string,
+but also noticed it's got quotation marks here which means we're going to have
+to escape those quotation marks, or make sure we don't use the same ones so
+they don't conflict. So instead of a template, we're going to
+use something else called a templateURL, and a templateURL allows you to
+point to a HTML template, or HTML file, and
+place your entire template into that file. Much more convenient for things that are a little bit longer
+than just a line of HTML code. Let's call it listItem.html and let's go
+ahead and not forget to return the ddo, let's save that and let's go head and
+create this file called listItem.html. Let's open up the file browser We'll
+go ahead and create a new file and we'll call it listItem.html. There it is. Let's go to index.html. Let's actually close the file browser for
+a second. We'll go to index.html. We'll grab this whole string here. We'll actually cut it at this point and we'll go back to listItem paste that
+there and here we are, let's save that. And let's go back to index.html and now what we need to place here is
+we need to place our list items. So we'll say list/item,
+the de-normalized name. And there's our list item right here. And every time this appears in our HTML,
+it's going to get substituted or at least is going to
+implemented as this li item. Let's go back to index.html and actually
+replace that over here as well and say a list-item, and we'll save that. And one more thing. While it could be okay to leave
+this ng-repeat right on the inside of the directive template, it's much
+easier I think to actually pull it out so we could see a little bit
+better as to what's going on. Let's go ahead and cut that out of here,
+save this, and go through our Index.hmtl and actually place this
+ng-repeat straight on this list-item. And I will do the same thing for
+the first one, and we'll go ahead and save that, and
+I believe now we're all ready to go. So, if we go back to our browser,
+let's make this smaller again, and if we start,
+we'll just enter some garbage for now and you can see nothing's working,
+why isn't it working? Let's take a look as to what we messed up. List is not defined. So if we go back to our code,
+let's take a look at abda JS. We forgot to put quotes
+around our HTML template. because this is just the string,
+the HTML template URL. Is just a string. Let's save that. This should fix it. And it does fix it. Let's go ahead and close that. We don't need that. And we'll say let's put
+some cookies in here. It's always a good idea to
+put some cookies in here. Let's get a few of them. So that's working and we'll put
+some other cookies, another cookie in here and
+I'll put a lot of cookies here. And as you can see here,
+it's limiting us to only three of them. Let's go ahead and
+expect the element here, actually, as to what got placed
+inside of our list item here. So, let's take a look. So, you can see here we
+started with a list item. And these items keep repeating
+because we put ng-repeat on them. Inside of the list item you see NLI. Followed by a list item description. Yet another custom
+directive that we created. So what we're able to accomplish here is
+create a directive that we're reusing in multiple places in our application and
+if we change something in that directive it changes every single place because the
+functionality obviously travels together. With that directive and
+that's a really an amazing concept. We're now doing code reuse right
+inside of our HTML templates. Note one more thing, if we take a look at
+our code and and specifically index.html, you could see that the HTML code
+itself became very schematic. If you remember from the previous course,
+course 4 HTML, CSS, and JavaScript for web developers. We discussed the reason for
+having semantic tags in HTML5. But even the semantic tags that
+exist as part of standard HTML5 section article and so
+on are such generic terms. In Anglo GS application we could
+create our own semantic tags that actually makes sense in
+the application that we're coding. So list item is clearly one list item
+in our shopping list, how cool is that? So let's summarize. A directive is really just a marker in our HTML that Angular complies
+into some behavior. It can also change the HTML elements
+themselves, because it gets a hold of the entire document object model tree that
+is under the control of the directive. Remember when you register the name of
+a directive when you use that directive method on the module object, you have
+to use the normalized camelCase name because that is the name that the Angular
+js compiler, will then look for, will try to match your custom element or attribute
+back to the registered directive. The function that you register within that
+directive method is a factory function that must return what's called a ddo,
+a directive definition object. That factory function will
+get executed only once. So you can use it to initialize
+whatever you need for the directives that are going
+to be in your application. The coolest part about custom directives
+is that our HTML coding becomes reusable. We can actually employ code reuse
+directly in our HTML coding. And last but not least,
+the HTML code itself becomes semantically relevant to the actual web
+app that we're building.
